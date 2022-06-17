@@ -17,18 +17,20 @@ class OrdersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return JsonResponse
      */
     public function store(Request $request): JsonResponse
     {
-        try {
-            $order = new Order();
-            $order->full_name = $request->full_name;
-            $order->address = $request->address;
-            $order->amount = $request->amount;
+        $data = $request->validate([
+            'full_name' => ['required', 'string', 'max:100'],
+            'address' => ['required', 'string','max:200'],
+            'amount' => ['required','numeric']
+        ]);
 
-            if (!$order->save()) {
+        try {
+
+            if (!Order::create($data)) {
                 return response()->json([
                     'status' => 'error'
                 ]);
@@ -76,9 +78,15 @@ class OrdersController extends Controller
             throw new NotFoundHttpException('Can not find order ' . $orderId);
         }
 
-        if (!$order->update($request->all())) {
+        $data = $request->validate([
+            'full_name' => ['max:100', 'string'],
+            'address' => ['max:200', 'string'],
+            'amount' => ['numeric']
+        ]);
+
+        if (!$order->update($data)) {
             return response()->json([
-               'status' => 'error'
+                'status' => 'error'
             ]);
         }
 
