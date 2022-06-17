@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
@@ -15,8 +16,8 @@ class OrdersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param  Request  $request
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
@@ -45,14 +46,24 @@ class OrdersController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
+     * @param int $orderId
+     * @return JsonResponse
      */
-    public function show(Order $order)
+    public function show(int $orderId)
     {
-        //
+        $order = Order::find($orderId);
+
+        if (!$order) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Can not find order ' . $orderId
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'order' => $order
+        ]);
     }
 
     /**

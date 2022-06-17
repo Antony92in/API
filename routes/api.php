@@ -15,3 +15,5 @@ use App\Http\Controllers\OrdersController;
 */
 
 Route::post('/create-order', [OrdersController::class, 'store']);
+
+Route::get('/order/{id}', [OrdersController::class, 'show']);
