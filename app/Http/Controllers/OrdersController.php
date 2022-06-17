@@ -56,7 +56,7 @@ class OrdersController extends Controller
         $order = Order::find($orderId);
 
         if (!$order) {
-            throw new NotFoundHttpException('Can not find order ' . $orderId);
+            throw new NotFoundHttpException(__('messages.exception_can_not_find_order', ['id' => $orderId]));
         }
 
         return response()->json([
@@ -75,7 +75,7 @@ class OrdersController extends Controller
         $order = Order::find($orderId);
 
         if (!$order) {
-            throw new NotFoundHttpException('Can not find order ' . $orderId);
+            throw new NotFoundHttpException(__('messages.exception_can_not_find_order', ['id' => $orderId]));
         }
 
         $data = $request->validate([
