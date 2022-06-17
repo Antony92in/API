@@ -18,7 +18,7 @@ return new class extends Migration
             $table->char('full_name', 100);
             $table->char('address', 200);
             $table->double('amount', 8, 2);
-            $table->dateTime('created_at');
+            $table->timestamps();
         });
     }
 

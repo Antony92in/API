@@ -16,4 +16,6 @@ use App\Http\Controllers\OrdersController;
 
 Route::post('/create-order', [OrdersController::class, 'store']);
 
-Route::get('/order/{id}', [OrdersController::class, 'show']);
+Route::get('/get-order/{id}', [OrdersController::class, 'show']);
+
+Route::patch('/update-order/{id}', [OrdersController::class, 'update']);

@@ -18,6 +18,10 @@ class Order extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
+    protected $fillable = [
+        'full_name',
+        'address',
+        'amount'
+    ];
 
 }
